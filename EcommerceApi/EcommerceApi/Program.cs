@@ -1,3 +1,6 @@
+using Ecommerce.Application.Database;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<DatabaseContext>(options =>
+{
+    options.UseNpgsql(
+        builder.Configuration["DbConnectionString"]!,
+        x => x.MigrationsAssembly("Ecommerce.Application")
+    );
+});
 
 var app = builder.Build();
 

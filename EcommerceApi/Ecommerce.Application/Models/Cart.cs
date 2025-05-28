@@ -3,5 +3,6 @@
 public class Cart
 {
     public required Guid Id { get; set; }
-    public Product? Product { get; set; }
+    public required List<Product?> Products { get; set; }
+    public required int Quantity { get; set; }
 }
